@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "module": "nodenext"
   },
   "exclude": ["node_modules"]
 }

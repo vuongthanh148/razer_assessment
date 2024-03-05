@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
-import validator from 'validator'
-import bcrypt from 'bcryptjs'
-import { paginate, toJSON } from './plugins/index.plugin.js'
-import { roles } from '../config/roles.js'
+import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
+import { ROLE, roles as ROLE_ENUM } from '../config/roles.js';
+import { paginate, toJSON } from './plugins/index.plugin.js';
 
 const userSchema = mongoose.Schema(
     {
@@ -25,8 +24,8 @@ const userSchema = mongoose.Schema(
         },
         role: {
             type: String,
-            enum: roles,
-            default: 'user',
+            enum: ROLE_ENUM,
+            default: ROLE.USER,
         },
     },
     {
@@ -38,11 +37,11 @@ const userSchema = mongoose.Schema(
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
 
-/**
- * Check if password matches the user's password
- * @param {string} password
- * @returns {Promise<boolean>}
- */
+userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
+    const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
+    return !!user;
+};
+
 userSchema.methods.isPasswordMatch = async function (password) {
     const user = this;
     return bcrypt.compare(password, user.password);
@@ -56,8 +55,5 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-/**
- * @typedef User
- */
 export const User = mongoose.model('User', userSchema);
 

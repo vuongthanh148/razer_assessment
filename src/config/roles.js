@@ -5,10 +5,15 @@ export const PERMISSION = {
     DELETE_GAME: 'DELETE_GAME',
 }
 
+export const ROLE = {
+    USER: 'USER',
+    ADMIN: 'ADMIN'
+}
+
 const rolePermissionMapping = {
-    user: [PERMISSION.GET_GAME],
-    admin: [PERMISSION.GET_GAME, PERMISSION.CREATE_GAME, PERMISSION.UPDATE_GAME, PERMISSION.DELETE_GAME],
+    [ROLE["USER"]]: [PERMISSION.GET_GAME],
+    [ROLE["ADMIN"]]: [PERMISSION.GET_GAME, PERMISSION.CREATE_GAME, PERMISSION.UPDATE_GAME, PERMISSION.DELETE_GAME],
 };
 
 export const roles = Object.keys(rolePermissionMapping);
-export const roleRights = new Map(Object.entries(rolePermissionMapping));
+export const roleRight = new Map(Object.entries(rolePermissionMapping));
