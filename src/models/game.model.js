@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { CATEGORY_ENUM, GENRE_ENUM, PLATFORM_ENUM } from '../config/constants.js';
-import { toJSON } from './plugins/toJSON.plugin.js';
+import { toJSON } from './plugins/index.plugin.js';
 
 const gameSchema = mongoose.Schema(
     {
