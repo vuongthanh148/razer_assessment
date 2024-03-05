@@ -9,6 +9,8 @@ mongoose.connect(GlobalConfig.mongoose.url, GlobalConfig.mongoose.options).then(
     server = app.listen(GlobalConfig.port, () => {
         logger.info(`Listening to port ${GlobalConfig.port}`);
     });
+}).catch(error => {
+    logger.error(error)
 });
 
 const exitHandler = () => {

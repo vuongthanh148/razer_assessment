@@ -23,11 +23,7 @@ export const GlobalConfig = {
     port: envVars.PORT,
     mongoose: {
         url: envVars.MONGODB_URL,
-        options: {
-            useCreateIndex: true,
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        },
+        options: {},
     },
     jwt: {
         secret: envVars.JWT_SECRET,

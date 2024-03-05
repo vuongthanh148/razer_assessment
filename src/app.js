@@ -7,7 +7,6 @@ import cors from 'cors'
 import passport from 'passport'
 import { jwtStrategy } from './config/passport.js'
 
-
 export const app = express()
 
 // set security HTTP headers
@@ -33,8 +32,4 @@ app.options('*', cors());
 
 app.get('/health', function (req, res) {
     res.send("Service is up!!!")
-})
-
-app.listen(3000, function () {
-    console.log("SERVER STARTED ON localhost:3000")
 })

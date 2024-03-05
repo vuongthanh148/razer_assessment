@@ -1,17 +1,11 @@
-const winston = require('winston')
-const GlobalConfig = require('./globalConfig')
-const { APP_ENV } = require('./constants')
+import * as winston from 'winston'
+import { GlobalConfig } from './globalConfig.js'
+import { APP_ENV } from './constants.js'
 
-const enumerateErrorFormat = winston.format((info) => {
-    if (info instanceof Error) {
-        Object.assign(info, { message: info.stack })
-    }
-})
 
 export const logger = winston.createLogger({
     level: GlobalConfig.env === APP_ENV.DEV ? 'debug' : 'info',
     format: winston.format.combine(
-        enumerateErrorFormat(),
         GlobalConfig.env === APP_ENV.DEV ? winston.format.colorize() : winston.format.uncolorize(),
         winston.format.splat(),
         winston.format.printf(({ level, message }) => `${level}: ${message}`)
