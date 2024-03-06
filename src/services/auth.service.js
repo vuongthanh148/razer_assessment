@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/apiError.js";
 import { userService } from "./index.service.js";
 
 const loginUserWithUsernameAndPassword = async (username, password) => {

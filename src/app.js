@@ -8,7 +8,8 @@ import passport from 'passport'
 import morgan from './config/morgan.js'
 import { jwtStrategy } from './config/passport.js'
 import router from './routes/v1/index.route.js'
-import { ApiError } from './utils/ApiError.js'
+import { ApiError } from './utils/apiError.js'
+import { GlobalConfig } from './config/globalConfig.js'
 export const app = express()
 
 app.use(morgan.successHandler);
@@ -38,8 +39,8 @@ app.get('/health', function (req, res) {
     res.send("Service is up!!!")
 })
 
-app.use('/api/v1', router)
+app.use(GlobalConfig.baseName, router)
 
 app.use((req, res, next) => {
-    next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+    next(new ApiError(httpStatus.NOT_FOUND, 'Not found route'));
 });

@@ -35,7 +35,6 @@ const userSchema = mongoose.Schema(
 
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
-userSchema.plugin(paginate);
 
 userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
     const user = await this.findOne({ username, _id: { $ne: excludeUserId } });

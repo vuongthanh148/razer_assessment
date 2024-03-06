@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/apiError.js";
 
 const createUser = async (userBody) => {
     if (await User.isUsernameTaken(userBody.username)) {

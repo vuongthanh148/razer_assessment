@@ -1,8 +1,6 @@
-
 import express from "express";
 import authRoute from "./auth.route.js";
 import gameRoute from "./game.route.js";
-import userRoute from "./user.route.js";
 
 const router = express.Router();
 
@@ -12,11 +10,7 @@ const defaultRoutes = [
         route: authRoute,
     },
     {
-        path: '/users',
-        route: userRoute,
-    },
-    {
-        path: '/games',
+        path: '/game',
         route: gameRoute,
     },
 ];
