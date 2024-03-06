@@ -11,22 +11,21 @@ const gameSchema = mongoose.Schema(
         },
         thumbnail: {
             type: String,
-            default: "https://media.gold.razer.com/goldweb/site/images/logo/razer-gold-silver.png"
         },
         category: {
             type: [String],
             enum: CATEGORY_ENUM,
-            required: true,
+            default: []
         },
         genre: {
             type: [String],
             enum: GENRE_ENUM,
-            required: true,
+            default: []
         },
         platform: {
             type: [String],
             enum: PLATFORM_ENUM,
-            required: true,
+            default: []
         },
     },
     {

@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import { authService, tokenService, userService } from '../services/index.service.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
+import { asyncHandler } from '../utils/async-handler.js';
 
 const register = asyncHandler(async (req, res) => {
     const user = await userService.createUser(req.body);

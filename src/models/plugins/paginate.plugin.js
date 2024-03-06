@@ -1,4 +1,25 @@
 export const paginate = (schema) => {
+    /**
+   * @typedef {Object} QueryResult
+   * @property {Document[]} results - Results found
+   * @property {number} page - Current page
+   * @property {number} limit - Maximum number of results per page
+   * @property {number} totalPages - Total number of pages
+   * @property {number} totalResults - Total number of documents
+   */
+    /**
+     * @typedef {Object} Option
+     * @property {string} sortBy - Sort option in the format: sortField:(desc|asc)
+     * @property {string} populate - Populate data fields. Hierarchy of fields should be separated by (.). Multiple populating criteria should be separated by commas (,)
+     * @property {number} limit - Maximum number of results per page (default = 10)
+     * @property {number} page - Current page (default = 1)
+  */
+    /**
+     * Query for documents with pagination
+     * @param {Object} [filter] - Mongo filter
+     * @param {Option} [options] - Query options
+     * @returns {Promise<QueryResult>}
+     */
     schema.statics.paginate = async function (filter, options) {
         let sort = '';
         if (options.sortBy) {
@@ -17,7 +38,8 @@ export const paginate = (schema) => {
         const skip = (page - 1) * limit;
 
         const countPromise = this.countDocuments(filter).exec();
-        let docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit);
+        let docsPromise = this.find(filter).
+            collation({ 'locale': 'en' }).sort(sort).skip(skip).limit(limit);
 
         if (options.populate) {
             options.populate.split(',').forEach((populateOption) => {

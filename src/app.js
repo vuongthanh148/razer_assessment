@@ -5,11 +5,11 @@ import mongoSanitize from 'express-mongo-sanitize'
 import helmet from 'helmet'
 import httpStatus from 'http-status'
 import passport from 'passport'
+import { GlobalConfig } from './config/globalConfig.js'
 import morgan from './config/morgan.js'
 import { jwtStrategy } from './config/passport.js'
 import router from './routes/v1/index.route.js'
-import { ApiError } from './utils/apiError.js'
-import { GlobalConfig } from './config/globalConfig.js'
+import { ApiError } from './utils/api-error.js'
 export const app = express()
 
 app.use(morgan.successHandler);

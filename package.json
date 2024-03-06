@@ -14,7 +14,8 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
-    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
+    "docker:dev": "docker-compose -f docker-compose.yaml up",
+    "seed:run": "node ./seeder/seed",
     "prepare": "husky"
   },
   "repository": {

@@ -1,11 +1,12 @@
 import * as dotenv from 'dotenv';
-import Joi from 'joi'
+import Joi from 'joi';
 
 dotenv.config();
 
 const envVarsSchema = Joi.object()
     .keys({
         NODE_ENV: Joi.string().valid('PROD', 'DEV').required(),
+        // eslint-disable-next-line no-magic-numbers
         PORT: Joi.number().default(3000),
         MONGODB_URL: Joi.string().required().description('Mongo DB url'),
         JWT_SECRET: Joi.string().required().description('JWT secret key'),

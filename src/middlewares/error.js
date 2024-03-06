@@ -16,7 +16,6 @@ export const errorConverter = (err, req, res, next) => {
     next(error);
 };
 
-// eslint-disable-next-line no-unused-vars
 export const errorHandler = (err, req, res, next) => {
     let { statusCode, message } = err;
     if (GlobalConfig.env === APP_ENV.PROD && !err.isOperational) {

@@ -1,5 +1,5 @@
 /**
- * Create an object composed of the picked object properties
+ * Create a new object with property picked from given object
  * @param {Object} object
  * @param {string[]} keys
  * @returns {Object}

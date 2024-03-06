@@ -4,6 +4,14 @@ import { TOKEN_TYPE } from "../config/constants.js";
 import { GlobalConfig } from "../config/globalConfig.js";
 import { Token } from "../models/token.model.js";
 
+/**
+ * Generate token
+ * @param {ObjectId} userId
+ * @param {Moment} expires
+ * @param {string} type
+ * @param {string} [secret]
+ * @returns {string}
+ */
 const generateToken = (userId, expires, type, secret = GlobalConfig.jwt.secret) => {
     const payload = {
         sub: userId,
@@ -14,6 +22,12 @@ const generateToken = (userId, expires, type, secret = GlobalConfig.jwt.secret) 
     return jsonwebtoken.sign(payload, secret);
 };
 
+/**
+ * Verify token and return token doc (or throw an error if it is not valid)
+ * @param {string} token
+ * @param {string} type
+ * @returns {Promise<Token>}
+ */
 const verifyToken = async (token, type) => {
     const payload = jwt.verify(token, GlobalConfig.jwt.secret);
     const tokenDoc = await Token.findOne({ token, type, user: payload.sub, blacklisted: false });
@@ -23,6 +37,15 @@ const verifyToken = async (token, type) => {
     return tokenDoc;
 };
 
+/**
+ * Save a token
+ * @param {string} token
+ * @param {ObjectId} userId
+ * @param {moment} expires
+ * @param {string} type
+ * @param {boolean} [blacklisted]
+ * @returns {Promise<Token>}
+ */
 const saveToken = async (token, userId, expires, type, blacklisted = false) => {
     const tokenDoc = await Token.create({
         token,
@@ -34,7 +57,11 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
     return tokenDoc;
 };
 
-
+/**
+ * Generate auth tokens
+ * @param {User} user
+ * @returns {Promise<Object>}
+ */
 const generateAuthTokens = async (user) => {
     const accessTokenExpires = moment().add(GlobalConfig.jwt.accessExpirationMinutes, 'minutes');
     const accessToken = generateToken(user.id, accessTokenExpires, TOKEN_TYPE.ACCESS);

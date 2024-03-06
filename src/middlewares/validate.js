@@ -1,6 +1,6 @@
-import Joi from 'joi'
-import httpStatus from 'http-status'
-import { ApiError } from '../utils/apiError.js';
+import httpStatus from 'http-status';
+import Joi from 'joi';
+import { ApiError } from '../utils/api-error.js';
 import { pick } from '../utils/pick.js';
 
 

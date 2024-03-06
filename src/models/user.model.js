@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
-import { ROLE, roles as ROLE_ENUM } from '../config/roles.js';
+import { ROLE_ENUM } from '../config/roles.js';
 import { paginate, toJSON } from './plugins/index.plugin.js';
 
 const userSchema = mongoose.Schema(
@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
         role: {
             type: String,
             enum: ROLE_ENUM,
-            default: ROLE.USER,
+            default: ROLE_ENUM.USER,
         },
     },
     {
@@ -35,12 +35,24 @@ const userSchema = mongoose.Schema(
 
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
+userSchema.plugin(paginate);
 
+/**
+ * Check if username is taken
+ * @param {string} username - Username
+ * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
+ * @returns {Promise<boolean>}
+ */
 userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
     const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
     return !!user;
 };
 
+/**
+ * Check if password matches the user's password
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
 userSchema.methods.isPasswordMatch = async function (password) {
     const user = this;
     return bcrypt.compare(password, user.password);
