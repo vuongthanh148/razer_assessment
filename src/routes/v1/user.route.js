@@ -1,19 +1,18 @@
 import express from 'express';
 import userController from '../../controllers/user.controller.js';
 import { auth } from '../../middlewares/auth.js';
-import { validate } from "../../middlewares/validate.js";
+import { validate } from '../../middlewares/validate.js';
 import { PERMISSION_ENUM } from '../../shared/config/roles.js';
-import userValidation from "../../validations/user.validation.js";
+import userValidation from '../../validations/user.validation.js';
 
 const router = express.Router();
 
 router
-    .route('/')
-    .post(auth([PERMISSION_ENUM.CREATE_USER]), validate(userValidation.createUser), userController.createUser)
-    .get(auth([PERMISSION_ENUM.GET_USER]), validate(userValidation.getUsers), userController.getUsers);
+  .route('/')
+  .post(auth([PERMISSION_ENUM.CREATE_USER]), validate(userValidation.createUser), userController.createUser)
+  .get(auth([PERMISSION_ENUM.GET_USER]), validate(userValidation.getUsers), userController.getUsers);
 
-
-export default router
+export default router;
 
 /**
  * @swagger
@@ -87,7 +86,7 @@ export default router
  *         description: User role
  *         schema:
  *           type: string
- *           enum: ["USER", "ADMIN"] 
+ *           enum: ["USER", "ADMIN"]
  *       - in: query
  *         name: sortBy
  *         schema:

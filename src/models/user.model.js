@@ -5,33 +5,33 @@ import { MIN_PASSWORD_LENGTH } from '../shared/constants/app.constant.js';
 import { paginate, toJSON } from './plugins/index.plugin.js';
 
 const userSchema = mongoose.Schema(
-    {
-        username: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        password: {
-            type: String,
-            required: true,
-            trim: true,
-            minlength: 8,
-            validate(value) {
-                if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-                    throw new Error('Password must contain at least one letter and one number');
-                }
-            },
-            private: true, // used by the toJSON plugin
-        },
-        role: {
-            type: String,
-            enum: ROLE_ENUM,
-            default: ROLE_ENUM.USER,
-        },
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    {
-        timestamps: true,
-    }
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 8,
+      validate(value) {
+        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
+          throw new Error('Password must contain at least one letter and one number');
+        }
+      },
+      private: true, // used by the toJSON plugin
+    },
+    role: {
+      type: String,
+      enum: ROLE_ENUM,
+      default: ROLE_ENUM.USER,
+    },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 // add plugin that converts mongoose to json
@@ -45,8 +45,8 @@ userSchema.plugin(paginate);
  * @returns {Promise<boolean>}
  */
 userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
-    const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
-    return !!user;
+  const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
+  return !!user;
 };
 
 /**
@@ -55,17 +55,16 @@ userSchema.statics.isUsernameTaken = async function (username, excludeUserId) {
  * @returns {Promise<boolean>}
  */
 userSchema.methods.isPasswordMatch = async function (password) {
-    const user = this;
-    return bcrypt.compare(password, user.password);
+  const user = this;
+  return bcrypt.compare(password, user.password);
 };
 
 userSchema.pre('save', async function (next) {
-    const user = this;
-    if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, MIN_PASSWORD_LENGTH);
-    }
-    next();
+  const user = this;
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, MIN_PASSWORD_LENGTH);
+  }
+  next();
 });
 
 export const User = mongoose.model('User', userSchema);
-

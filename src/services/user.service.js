@@ -1,6 +1,6 @@
-import { User } from "../models/user.model.js";
-import { ErrorCode, ErrorMessage } from "../shared/constants/error.constant.js";
-import { CustomError } from "../utils/custom-error.js";
+import { User } from '../models/user.model.js';
+import { ErrorCode, ErrorMessage } from '../shared/constants/error.constant.js';
+import { CustomError } from '../utils/custom-error.js';
 
 /**
  * Create a user
@@ -8,18 +8,18 @@ import { CustomError } from "../utils/custom-error.js";
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
-    if (await User.isUsernameTaken(userBody.username)) {
-        throw new CustomError({ code: ErrorCode.USER_NAME_EXIST, message: ErrorMessage.USER_NAME_EXIST });
-    }
-    return User.create(userBody);
+  if (await User.isUsernameTaken(userBody.username)) {
+    throw new CustomError({ code: ErrorCode.USER_NAME_EXIST, message: ErrorMessage.USER_NAME_EXIST });
+  }
+  return User.create(userBody);
 };
 
 /**
-   * @typedef {Object} Option
-   * @property {string} sortBy - Sort option in the format: sortField:(desc|asc)
-   * @property {number} limit - Maximum number of results per page (default = 10)
-   * @property {number} page - Current page (default = 1)
-*/
+ * @typedef {Object} Option
+ * @property {string} sortBy - Sort option in the format: sortField:(desc|asc)
+ * @property {number} limit - Maximum number of results per page (default = 10)
+ * @property {number} page - Current page (default = 1)
+ */
 /**
  * Query for games
  * @param {Object} filter - Mongo filter
@@ -27,8 +27,8 @@ const createUser = async (userBody) => {
  * @returns {Promise<QueryResult>}
  */
 const queryUsers = async (filter, options) => {
-    const users = await User.paginate(filter, options);
-    return users;
+  const users = await User.paginate(filter, options);
+  return users;
 };
 
 /**
@@ -37,12 +37,11 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserByUsername = async (username) => {
-    return User.findOne({ username });
+  return User.findOne({ username });
 };
 
 export default {
-    createUser,
-    queryUsers,
-    getUserByUsername
-}
-
+  createUser,
+  queryUsers,
+  getUserByUsername,
+};
