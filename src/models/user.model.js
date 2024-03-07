@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import { ROLE_ENUM } from '../config/roles.js';
 import { paginate, toJSON } from './plugins/index.plugin.js';
+import { MIN_PASSWORD_LENGTH } from '../config/constants.js';
 
 const userSchema = mongoose.Schema(
     {
@@ -61,7 +62,7 @@ userSchema.methods.isPasswordMatch = async function (password) {
 userSchema.pre('save', async function (next) {
     const user = this;
     if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8);
+        user.password = await bcrypt.hash(user.password, MIN_PASSWORD_LENGTH);
     }
     next();
 });

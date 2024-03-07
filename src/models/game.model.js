@@ -39,4 +39,16 @@ gameSchema.plugin(paginate)
 
 gameSchema.index({ name: 'text' })
 
+
+/**
+ * Check if username is taken
+ * @param {string} name - Game name
+ * @param {ObjectId} [excludeGameId] - The id of the user to be excluded
+ * @returns {Promise<boolean>}
+ */
+gameSchema.statics.isGameNameTaken = async function (name, excludeUserId) {
+    const game = await this.findOne({ name, _id: { $ne: excludeUserId } });
+    return !!game;
+};
+
 export const Game = mongoose.model('Game', gameSchema);

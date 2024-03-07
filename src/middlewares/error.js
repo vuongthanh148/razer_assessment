@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const httpStatus = require('http-status');
-const GlobalConfig = require('../config/globalConfig')
-const logger = require('../config/logger');
-const ApiError = require('../utils/ApiError');
-const { APP_ENV } = require('../config/constants');
+import mongoose from 'mongoose'
+import { GlobalConfig } from '../config/globalConfig.js'
+import { logger } from '../config/logger.js'
+import httpStatus from 'http-status';
+import { ApiError } from '../utils/api-error.js';
+import { APP_ENV } from '../config/constants.js';
 
 export const errorConverter = (err, req, res, next) => {
     let error = err;
@@ -16,7 +16,7 @@ export const errorConverter = (err, req, res, next) => {
     next(error);
 };
 
-export const errorHandler = (err, req, res, next) => {
+export const errorResponseHandler = (err, req, res, next) => {
     let { statusCode, message } = err;
     if (GlobalConfig.env === APP_ENV.PROD && !err.isOperational) {
         statusCode = httpStatus.INTERNAL_SERVER_ERROR;

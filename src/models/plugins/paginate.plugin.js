@@ -1,7 +1,9 @@
+import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from "../../config/constants.js";
+
 export const paginate = (schema) => {
     /**
    * @typedef {Object} QueryResult
-   * @property {Document[]} results - Results found
+   * @property {Document[]} data - Results found
    * @property {number} page - Current page
    * @property {number} limit - Maximum number of results per page
    * @property {number} totalPages - Total number of pages
@@ -33,8 +35,8 @@ export const paginate = (schema) => {
             sort = 'createdAt';
         }
 
-        const limit = options.limit && parseInt(options.limit, 10) > 0 ? parseInt(options.limit, 10) : 10;
-        const page = options.page && parseInt(options.page, 10) > 0 ? parseInt(options.page, 10) : 1;
+        const limit = options.limit && parseInt(options.limit, 10) > 0 ? parseInt(options.limit, 10) : DEFAULT_PAGE_LIMIT;
+        const page = options.page && parseInt(options.page, 10) > 0 ? parseInt(options.page, 10) : DEFAULT_PAGE_NUMBER;
         const skip = (page - 1) * limit;
 
         const countPromise = this.countDocuments(filter).exec();
@@ -58,7 +60,7 @@ export const paginate = (schema) => {
             const [totalResults, results] = values;
             const totalPages = Math.ceil(totalResults / limit);
             const result = {
-                results,
+                data: results,
                 page,
                 limit,
                 totalPages,

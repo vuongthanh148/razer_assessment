@@ -1,17 +1,17 @@
 import * as dotenv from 'dotenv';
 import Joi from 'joi';
+import { DEFAULT_JWT_ACCESS_EXPIRATION, DEFAULT_JWT_REFRESH_EXPIRATION, DEFAULT_PORT } from './constants.js';
 
 dotenv.config();
 
 const envVarsSchema = Joi.object()
     .keys({
         NODE_ENV: Joi.string().valid('PROD', 'DEV').required(),
-        // eslint-disable-next-line no-magic-numbers
-        PORT: Joi.number().default(3000),
+        PORT: Joi.number().default(DEFAULT_PORT),
         MONGODB_URL: Joi.string().required().description('Mongo DB url'),
         JWT_SECRET: Joi.string().required().description('JWT secret key'),
-        JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(60).description('minutes after which access tokens expire'),
-        JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(30).description('days after which refresh tokens expire'),
+        JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(DEFAULT_JWT_ACCESS_EXPIRATION).description('minutes after which access tokens expire'),
+        JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(DEFAULT_JWT_REFRESH_EXPIRATION).description('days after which refresh tokens expire'),
         BASE_NAME: Joi.string().required().description('API base name')
     })
     .unknown();

@@ -10,6 +10,7 @@ import morgan from './config/morgan.js'
 import { jwtStrategy } from './config/passport.js'
 import router from './routes/v1/index.route.js'
 import { ApiError } from './utils/api-error.js'
+import { errorConverter, errorResponseHandler } from './middlewares/error.js'
 export const app = express()
 
 app.use(morgan.successHandler);
@@ -44,3 +45,10 @@ app.use(GlobalConfig.baseName, router)
 app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Not found route'));
 });
+
+// convert error to ApiError, if needed
+app.use(errorConverter);
+
+// handle error
+app.use(errorResponseHandler);
+

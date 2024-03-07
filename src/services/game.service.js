@@ -4,12 +4,14 @@ import { ApiError } from "../utils/api-error.js";
 
 /**
  * Create new game
- * @param {Object} userBody
+ * @param {Object} gameBody
  * @returns {Promise<Game>}
  */
-const createGame = async (userBody) => {
-    const game = await Game.create(userBody)
-    if (!game) throw new ApiError(httpStatus.BAD_REQUEST, "Cannot create game")
+const createGame = async (gameBody) => {
+    if (await Game.isGameNameTaken(gameBody.username)) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Game already taken');
+    }
+    const game = await Game.create(gameBody)
     return game
 }
 
@@ -21,7 +23,7 @@ const createGame = async (userBody) => {
 */
 /**
    * @typedef {Object} QueryResult
-   * @property {Document[]} results - Results found
+   * @property {Document[]} data - Results found
    * @property {number} page - Current page
    * @property {number} limit - Maximum number of results per page
    * @property {number} totalPages - Total number of pages
@@ -44,7 +46,7 @@ const queryGames = async (filter, options) => {
  * @param {ObjectId} gameId - Id of the game
  * @returns {Promise<Game>}
  */
-const queryOneGame = async (gameId) => {
+const getGameById = async (gameId) => {
     const game = await Game.findById(gameId)
     if (!game) throw new ApiError(httpStatus.BAD_REQUEST, "Cannot find game")
     return game
@@ -57,10 +59,11 @@ const queryOneGame = async (gameId) => {
  * @returns {Promise<Game>}
  */
 const updateGame = async (gameId, updateBody) => {
-    const filter = {
-        id: gameId
-    }
-    const game = await Game.updateOne(filter, updateBody)
+    const game = await getGameById(gameId)
+    if (!game) throw new ApiError(httpStatus.NOT_FOUND, 'Game not found')
+    if (updateBody.name && (await Game.isGameNameTaken(updateBody.name, gameId))) throw new ApiError(httpStatus.BAD_REQUEST, 'Game name already taken')
+    Object.assign(game, updateBody)
+    await game.save()
     return game
 }
 
@@ -70,14 +73,14 @@ const updateGame = async (gameId, updateBody) => {
  * @returns {Promise<Game>}
  */
 const deleteGame = async (gameId) => {
-    const game = await Game.deleteOne(gameId)
+    const game = await Game.deleteOne({ _id: gameId })
     return game
 }
 
 export default {
     createGame,
     queryGames,
-    queryOneGame,
+    getGameById,
     updateGame,
     deleteGame
 }

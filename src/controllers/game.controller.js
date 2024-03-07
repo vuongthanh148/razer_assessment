@@ -32,7 +32,7 @@ const queryGames = asyncHandler(async (req, res) => {
 });
 
 const queryOneGame = asyncHandler(async (req, res) => {
-    const game = await gameService.queryOneGame(req.params.gameId)
+    const game = await gameService.getGameById(req.params.gameId)
     res.status(httpStatus.OK).send({ game });
 });
 

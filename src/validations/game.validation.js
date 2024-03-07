@@ -5,9 +5,10 @@ import { objectId } from "./custom.validation.js";
 const createGame = {
     body: Joi.object().keys({
         name: Joi.string().required(),
-        category: Joi.array().valid(...CATEGORY_ENUM).default([]),
-        genre: Joi.array().valid(...GENRE_ENUM).default([]),
-        platform: Joi.array().valid(...PLATFORM_ENUM).default([]),
+        category: Joi.array().items(Joi.string().valid(...CATEGORY_ENUM)).default([]).single(),
+        genre: Joi.array().items(Joi.string().valid(...GENRE_ENUM)).default([]).single(),
+        platform: Joi.array().items(Joi.string().valid(...PLATFORM_ENUM)).default([]).single(),
+        thumbnail: Joi.string()
     }),
 };
 
@@ -39,6 +40,7 @@ const updateGame = {
             category: Joi.array().valid(...CATEGORY_ENUM),
             genre: Joi.array().valid(...GENRE_ENUM),
             platform: Joi.array().valid(...PLATFORM_ENUM),
+            thumbnail: Joi.string()
         })
         .min(1),
 };

@@ -1,15 +1,14 @@
 import Joi from "joi";
 import { password } from "./custom.validation.js";
+import { ROLE_ENUM } from "../config/roles.js";
 
 const createUser = {
     body: Joi.object().keys({
-        email: Joi.string().required().email(),
+        username: Joi.string().required(),
         password: Joi.string().required().custom(password),
-        name: Joi.string().required(),
-        role: Joi.string().required().valid('user', 'admin'),
+        role: Joi.string().required().valid(ROLE_ENUM.USER, ROLE_ENUM.ADMIN),
     }),
 };
-
 
 const getUsers = {
     query: Joi.object().keys({
@@ -20,8 +19,6 @@ const getUsers = {
         page: Joi.number().integer(),
     }),
 };
-
-
 
 export default {
     createUser,
