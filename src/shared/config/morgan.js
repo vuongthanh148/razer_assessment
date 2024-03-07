@@ -1,8 +1,8 @@
+import httpStatus from 'http-status';
 import morgan from 'morgan';
+import { APP_ENV } from '../constants/app.constant.js';
 import { GlobalConfig } from './globalConfig.js';
 import { logger } from './logger.js';
-import httpStatus from 'http-status';
-import { APP_ENV } from './constants.js';
 
 morgan.token('message', (req, res) => res.locals.errorMessage || '');
 

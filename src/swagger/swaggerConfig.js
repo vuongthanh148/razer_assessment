@@ -1,4 +1,4 @@
-import { GlobalConfig } from "../config/globalConfig.js";
+import { GlobalConfig } from "../shared/config/globalConfig.js";
 
 export const swaggerConfig = {
     definition: {

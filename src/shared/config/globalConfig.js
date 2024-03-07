@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import Joi from 'joi';
-import { DEFAULT_JWT_ACCESS_EXPIRATION, DEFAULT_JWT_REFRESH_EXPIRATION, DEFAULT_PORT } from './constants.js';
+import { DEFAULT_JWT_ACCESS_EXPIRATION, DEFAULT_JWT_REFRESH_EXPIRATION, DEFAULT_PORT } from '../constants/app.constant.js';
 
 dotenv.config();
 

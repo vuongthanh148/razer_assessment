@@ -1,6 +1,6 @@
 import * as winston from 'winston'
+import { APP_ENV } from '../constants/app.constant.js'
 import { GlobalConfig } from './globalConfig.js'
-import { APP_ENV } from './constants.js'
 
 
 export const logger = winston.createLogger({

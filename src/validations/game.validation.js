@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { CATEGORY_ENUM, GENRE_ENUM, PLATFORM_ENUM } from "../config/constants.js";
+import { CATEGORY_ENUM, GENRE_ENUM, MIN_UPDATE_FIELD, PLATFORM_ENUM } from "../shared/constants/app.constant.js";
 import { objectId } from "./custom.validation.js";
 
 const createGame = {
@@ -42,7 +42,7 @@ const updateGame = {
             platform: Joi.array().valid(...PLATFORM_ENUM),
             thumbnail: Joi.string()
         })
-        .min(1),
+        .min(MIN_UPDATE_FIELD),
 };
 
 const deleteGame = {

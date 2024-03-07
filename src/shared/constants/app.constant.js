@@ -20,3 +20,4 @@ export const DEFAULT_PORT = 3000
 export const DEFAULT_PAGE_LIMIT = 10
 export const DEFAULT_PAGE_NUMBER = 1
 export const MIN_PASSWORD_LENGTH = 8
+export const MIN_UPDATE_FIELD = 1

@@ -1,4 +1,5 @@
-import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from "../../config/constants.js";
+/* eslint-disable no-magic-numbers */
+import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from "../../shared/constants/app.constant.js";
 
 export const paginate = (schema) => {
     /**

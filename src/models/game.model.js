@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CATEGORY_ENUM, GENRE_ENUM, PLATFORM_ENUM } from '../config/constants.js';
+import { CATEGORY_ENUM, GENRE_ENUM, PLATFORM_ENUM } from '../shared/constants/app.constant.js';
 import { paginate, toJSON } from './plugins/index.plugin.js';
 
 const gameSchema = mongoose.Schema(

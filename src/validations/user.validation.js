@@ -1,6 +1,6 @@
 import Joi from "joi";
+import { ROLE_ENUM } from "../shared/config/roles.js";
 import { password } from "./custom.validation.js";
-import { ROLE_ENUM } from "../config/roles.js";
 
 const createUser = {
     body: Joi.object().keys({

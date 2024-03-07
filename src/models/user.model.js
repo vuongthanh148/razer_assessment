@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
-import { ROLE_ENUM } from '../config/roles.js';
+import { ROLE_ENUM } from '../shared/config/roles.js';
+import { MIN_PASSWORD_LENGTH } from '../shared/constants/app.constant.js';
 import { paginate, toJSON } from './plugins/index.plugin.js';
-import { MIN_PASSWORD_LENGTH } from '../config/constants.js';
 
 const userSchema = mongoose.Schema(
     {

@@ -1,8 +1,8 @@
 import express from 'express';
-import { PERMISSION_ENUM } from '../../config/roles.js';
 import gameController from '../../controllers/game.controller.js';
 import { auth } from '../../middlewares/auth.js';
 import { validate } from '../../middlewares/validate.js';
+import { PERMISSION_ENUM } from '../../shared/config/roles.js';
 import gameValidation from '../../validations/game.validation.js';
 
 const router = express.Router();

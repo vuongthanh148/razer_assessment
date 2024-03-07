@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { GlobalConfig } from "../src/config/globalConfig.js";
-import { logger } from "../src/config/logger.js";
 import { Game } from "../src/models/game.model.js";
 import { User } from "../src/models/user.model.js";
+import { GlobalConfig } from "../src/shared/config/globalConfig.js";
+import { logger } from "../src/shared/config/logger.js";
 import { seedAdmin, seedGames, seedUser } from "./data.js";
 
 

@@ -1,6 +1,6 @@
-import httpStatus from "http-status";
 import { Game } from "../models/game.model.js";
-import { ApiError } from "../utils/api-error.js";
+import { ErrorCode, ErrorMessage } from "../shared/constants/error.constant.js";
+import { CustomError } from "../utils/custom-error.js";
 
 /**
  * Create new game
@@ -9,7 +9,7 @@ import { ApiError } from "../utils/api-error.js";
  */
 const createGame = async (gameBody) => {
     if (await Game.isGameNameTaken(gameBody.username)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Game already taken');
+        throw new CustomError({ code: ErrorCode.GAME_EXISTED, message: ErrorMessage.GAME_EXISTED })
     }
     const game = await Game.create(gameBody)
     return game
@@ -37,7 +37,7 @@ const createGame = async (gameBody) => {
  */
 const queryGames = async (filter, options) => {
     const game = await Game.paginate(filter, options)
-    if (!game) throw new ApiError(httpStatus.BAD_REQUEST, "Cannot create game")
+    if (!game) throw new CustomError({ code: ErrorCode.GAME_SEARCH_FAILED, message: ErrorMessage.GAME_SEARCH_FAILED })
     return game
 }
 
@@ -48,7 +48,7 @@ const queryGames = async (filter, options) => {
  */
 const getGameById = async (gameId) => {
     const game = await Game.findById(gameId)
-    if (!game) throw new ApiError(httpStatus.BAD_REQUEST, "Cannot find game")
+    if (!game) throw new CustomError({ code: ErrorCode.GAME_NOT_FOUND, message: ErrorMessage.GAME_NOT_FOUND })
     return game
 }
 
@@ -60,8 +60,7 @@ const getGameById = async (gameId) => {
  */
 const updateGame = async (gameId, updateBody) => {
     const game = await getGameById(gameId)
-    if (!game) throw new ApiError(httpStatus.NOT_FOUND, 'Game not found')
-    if (updateBody.name && (await Game.isGameNameTaken(updateBody.name, gameId))) throw new ApiError(httpStatus.BAD_REQUEST, 'Game name already taken')
+    if (updateBody.name && (await Game.isGameNameTaken(updateBody.name, gameId))) throw new CustomError({ code: ErrorCode.GAME_EXISTED, message: ErrorMessage.GAME_EXISTED })
     Object.assign(game, updateBody)
     await game.save()
     return game

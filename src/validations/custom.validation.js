@@ -1,4 +1,4 @@
-import { MIN_PASSWORD_LENGTH } from "../config/constants.js";
+import { MIN_PASSWORD_LENGTH } from "../shared/constants/app.constant.js";
 
 export const objectId = (value, helpers) => {
     if (!value.match(/^[0-9a-fA-F]{24}$/)) {

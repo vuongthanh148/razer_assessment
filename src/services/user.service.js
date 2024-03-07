@@ -1,6 +1,6 @@
-import httpStatus from "http-status";
 import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/api-error.js";
+import { ErrorCode, ErrorMessage } from "../shared/constants/error.constant.js";
+import { CustomError } from "../utils/custom-error.js";
 
 /**
  * Create a user
@@ -9,7 +9,7 @@ import { ApiError } from "../utils/api-error.js";
  */
 const createUser = async (userBody) => {
     if (await User.isUsernameTaken(userBody.username)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Username already taken');
+        throw new CustomError({ code: ErrorCode.USER_NAME_EXIST, message: ErrorMessage.USER_NAME_EXIST });
     }
     return User.create(userBody);
 };

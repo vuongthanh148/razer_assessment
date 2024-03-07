@@ -1,5 +1,5 @@
-import httpStatus from "http-status";
-import { ApiError } from "../utils/api-error.js";
+import { ErrorMessage } from "../shared/constants/error.constant.js";
+import { CustomError } from "../utils/custom-error.js";
 import { userService } from "./index.service.js";
 
 /**
@@ -11,7 +11,7 @@ import { userService } from "./index.service.js";
 const loginUserWithUsernameAndPassword = async (username, password) => {
     const user = await userService.getUserByUsername(username);
     if (!user || !(await user.isPasswordMatch(password))) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect username or password');
+        throw new CustomError({ code: ErrorCode.LOGIN_FAILED, message: ErrorMessage.LOGIN_FAILED })
     }
     return user;
 };

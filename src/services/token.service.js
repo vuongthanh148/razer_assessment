@@ -1,8 +1,8 @@
 import jsonwebtoken from 'jsonwebtoken';
 import moment from "moment";
-import { TOKEN_TYPE } from "../config/constants.js";
-import { GlobalConfig } from "../config/globalConfig.js";
 import { Token } from "../models/token.model.js";
+import { GlobalConfig } from "../shared/config/globalConfig.js";
+import { TOKEN_TYPE } from "../shared/constants/app.constant.js";
 
 /**
  * Generate token
