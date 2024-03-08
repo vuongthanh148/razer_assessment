@@ -37,7 +37,6 @@ const createGame = async (gameBody) => {
  */
 const queryGames = async (filter, options) => {
   const game = await Game.paginate(filter, options);
-  if (!game) throw new CustomError({ code: ErrorCode.GAME_SEARCH_FAILED, message: ErrorMessage.GAME_SEARCH_FAILED });
   return game;
 };
 

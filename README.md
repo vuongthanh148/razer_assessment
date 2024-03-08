@@ -1,9 +1,5 @@
 # RAZER ASSESSMENT API
 
-[![Build Status](https://travis-ci.org/hagopj13/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/hagopj13/node-express-boilerplate)
-[![Coverage Status](https://coveralls.io/repos/github/hagopj13/node-express-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/hagopj13/node-express-boilerplate?branch=master)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
 A project for Razer technical assessment.
 
 This project provide APIs that manage users and games of a company.
@@ -55,6 +51,8 @@ Start docker container:
 ```bash
 npm run docker:run
 ```
+
+Now you can access swagger documentation at: `http://localhost:3000/api/v1/api-docs`
 
 ## Table of Contents
 
@@ -432,10 +430,6 @@ To prevent a certain file or directory from being linted, add it to `.eslintigno
 
 To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
 
-## Inspirations
+## References
 
 - [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
-
-## License
-
-[MIT](LICENSE)
