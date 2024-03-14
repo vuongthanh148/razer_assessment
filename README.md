@@ -135,7 +135,7 @@ The environment variables can be found and modified in the `.env` file. They com
 PORT=3000
 NODE_ENV=PROD
 # URL of the Mongo DB
-MONGODB_URL=mongodb://127.0.0.1:27017/razer_assessment
+MONGODB_URL=mongodb://127.0.0.1:27017/razer-assessment
 BASE_NAME=/api/v1
 # JWT
 # JWT secret key
