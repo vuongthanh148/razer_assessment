@@ -1,4 +1,4 @@
-import { ErrorMessage } from '../shared/constants/error.constant.js';
+import { ErrorCode, ErrorMessage } from '../shared/constants/error.constant.js';
 import { CustomError } from '../utils/custom-error.js';
 import { userService } from './index.service.js';
 
