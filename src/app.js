@@ -13,8 +13,9 @@ import { ErrorCode, ErrorMessage } from './shared/constants/error.constant.js';
 import { CustomError } from './utils/custom-error.js';
 export const app = express();
 
-app.use(morgan.successHandler);
-app.use(morgan.errorHandler);
+// enable cors
+app.use(cors());
+app.options('*', cors());
 
 // set security HTTP headers
 app.use(helmet());
@@ -29,12 +30,11 @@ app.use(mongoSanitize());
 // gzip compression
 app.use(compression());
 
+app.use(morgan.successHandler);
+app.use(morgan.errorHandler);
+
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
-
-// enable cors
-app.use(cors());
-app.options('*', cors());
 
 app.get('/health', function (req, res) {
   res.send('Service is up!!!');
