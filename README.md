@@ -4,6 +4,8 @@ A project for Razer technical assessment.
 
 This project provide APIs that manage users and games of a company.
 
+(And yes I passed this interview btw :D)
+
 ## Prerequisites
 
 - Node version >= 18
